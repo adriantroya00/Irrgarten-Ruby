@@ -1,133 +1,83 @@
-package irrgarten;
-import java.util.Random;
+# encoding: UTF-8
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-public class Dice {
-    private static final int MAX_USES = 5; // Numero maximo de usos de armas y escudos
-    private static final float MAX_INTELLIGENCE = 10.0f; // Valor maximo para la inteligencia de jugadores y monstruos
-    private static final float MAX_STRENGTH = 10.0f; // Valor maximo para la fuerza de jugadores y monstruos
-    private static final float RESURRECT_PROB = 0.3f; // Probabilidad de que un jugador sea resucitado en cada turno
-    private static final int WEAPONS_REWARD = 2; // Numero maximo de armas recibidas al ganar un combate
-    private static final int SHIELDS_REWARD = 3; // Numero maximo de escudos recibidos al ganar un combate
-    private static final int HEALTH_REWARD = 5; // Numero maximo de unidades de salud recibidas al ganar un combate
-    private static final int MAX_ATTACK = 3; // Maxima potencia de las armas
-    private static final int MAX_SHIELD = 2; // Maxima potencia de los escudos
+module Irrgarten
+  # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+  class Dice
+    MAX_USES = 5                # Número máximo de usos de armas y escudos
+    MAX_INTELLIGENCE = 10.0     # Valor máximo para la inteligencia de jugadores y monstruos
+    MAX_STRENGTH = 10.0         # Valor máximo para la fuerza de jugadores y monstruos
+    RESURRECT_PROB = 0.3        # Probabilidad de que un jugador sea resucitado en cada turno
+    WEAPONS_REWARD = 2          # Número máximo de armas recibidas al ganar un combate
+    SHIELDS_REWARD = 3          # Número máximo de escudos recibidos al ganar un combate
+    HEALTH_REWARD = 5           # Número máximo de unidades de salud recibidas al ganar un combate
+    MAX_ATTACK = 3              # Máxima potencia de las armas
+    MAX_SHIELD = 2              # Máxima potencia de los escudos
 
-    private static final Random generator = new Random();
+    GENERATOR = Random.new
 
-    /**
-     * @param max numero filas y columnas
-     * @return numero de fila/columna aleatoria siendo el valor del parámeyro el número filas o columnas tablero (filas y columnas menor valor tienen como índice el 0)
-     */
-    public static int randomPos(int max){
-        return generator.nextInt(max);
-    }
+    # Fila/columna aleatoria en [0, max)
+    def self.random_pos(max)
+      GENERATOR.rand(max)
+    end
 
-    /**
-     * 
-     * @param nplayers número jugadores en partida
-     * @return índice del jugador que comenzará la partida (jugadores se numeran comenzando en el 0)
-     */
-    public static int whoStarts(int nplayers){
-        return generator.nextInt(nplayers);
-    }
+    # Índice del jugador que empieza (los jugadores se numeran desde 0)
+    def self.who_starts(nplayers)
+      GENERATOR.rand(nplayers)
+    end
 
-    /**
-     * 
-     * @return valor aleatorio de inteligencia [0, MAX_INTELLIGENCE]
-     */
-    public static float randomIntelligence(){
-        return generator.nextFloat() * MAX_INTELLIGENCE ;
-    }
+    # Inteligencia aleatoria en [0, MAX_INTELLIGENCE]
+    def self.random_intelligence
+      GENERATOR.rand * MAX_INTELLIGENCE
+    end
 
-    /**
-     * 
-     * @return valor aleatorio de fuerza [0, MAX_STRENGTH]
-     */
-    public static float randomStrength(){
-        return generator.nextFloat() * MAX_STRENGTH;
-    }
+    # Fuerza aleatoria en [0, MAX_STRENGTH]
+    def self.random_strength
+      GENERATOR.rand * MAX_STRENGTH
+    end
 
-    /**
-     * 
-     * @return si un jugador muerto debe ser resucitado o no
-     */
-    public static boolean resurrectPlayer(){
-        return (generator.nextFloat()<RESURRECT_PROB);
-    }
+    # Si un jugador muerto debe ser resucitado o no
+    def self.resurrect_player
+      GENERATOR.rand < RESURRECT_PROB
+    end
 
-    /**
-     * 
-     * @return cantidad de armas que recibe el jugador al ganar el combate (sera un numero entre 0 (incluido) y el máximo)
-     */
-    public static int weaponsReward(){
-        return generator.nextInt(WEAPONS_REWARD);
-    }
+    # Armas recibidas al ganar el combate
+    def self.weapons_reward
+      GENERATOR.rand(WEAPONS_REWARD)
+    end
 
-    /**
-     * 
-     * @return cantidad de escudos que recibe el jugador al ganar el combate (sera un numero entre 0 (incluido) y el máximo)
-     */
-    public static int shieldsReward(){
-        return generator.nextInt(SHIELDS_REWARD);
-    }
+    # Escudos recibidos al ganar el combate
+    def self.shields_reward
+      GENERATOR.rand(SHIELDS_REWARD)
+    end
 
-    /**
-     * 
-     * @return cantidad de vida que recibe el jugador al ganar el combate (sera un numero entre 0 (incluido) y el máximo)
-     */
-    public static int healthReward(){
-        return generator.nextInt(HEALTH_REWARD);
-    }
+    # Vida recibida al ganar el combate
+    def self.health_reward
+      GENERATOR.rand(HEALTH_REWARD)
+    end
 
-    /**
-     * 
-     * @return valor aleatorio en intervalo [0, MAX_ATTACK]
-     */
-    public static float weaponPower(){
-        return generator.nextFloat() * MAX_ATTACK;
-    }
+    # Potencia de un arma en [0, MAX_ATTACK]
+    def self.weapon_power
+      GENERATOR.rand * MAX_ATTACK
+    end
 
-    /**
-     * 
-     * @return valor aleatorio en intervalo [0, MAX_SHIELD]
-     */
-    public static float shieldPower(){
-        return generator.nextFloat() * MAX_SHIELD;
-    }
+    # Potencia de un escudo en [0, MAX_SHIELD]
+    def self.shield_power
+      GENERATOR.rand * MAX_SHIELD
+    end
 
-    /**
-     * 
-     * @return numero usos que se asignara a un arma/escudo (número aleatorio entre 0 (incluido) y el máximo)
-     */
-    public static int usesLeft(){
-        return generator.nextInt(MAX_USES);
-    }
+    # Usos que se asignarán a un arma/escudo
+    def self.uses_left
+      GENERATOR.rand(MAX_USES)
+    end
 
-    /**
-     * @param competence
-     * @return cantidad competencia aplicada (valor aleatorio entre [0, competence])
-     */
-    public static float intensity(float competence){
-        return generator.nextFloat() * competence;
-    }
+    # Competencia aplicada, valor aleatorio en [0, competence]
+    def self.intensity(competence)
+      GENERATOR.rand * competence
+    end
 
-    /**
-     * @brief Al usar un arma o escudo comprobamos si se descartara el objeto.
-     * @param usesLeft usos restantes del arma/escudo
-     * @return true con una probabilidad inversamente proporcional a lo cercano que esté el parametro del número máximo de usos que puede tener un arma/escudo
-     */
-    public static boolean discardElement(int usesLeft){
-        if(generator.nextInt(MAX_USES)>=usesLeft){
-            return true;
-        } else {
-            return false;
-        }
-
-        //5 usos = 100% falso
-        //4 usos = 80% falso y 20% true
-    }
-    
-}
+    # Comprueba si se descarta un arma/escudo al usarlo
+    def self.discard_element(uses_left)
+      GENERATOR.rand(MAX_USES) >= uses_left
+    end
+  end
+end

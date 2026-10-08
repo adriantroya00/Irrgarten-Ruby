@@ -1,31 +1,27 @@
-package irrgarten;
-//Alvaro
+# encoding: UTF-8
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-public class Shield {
-    private float protection;
-    private int uses;
+module Irrgarten
+  # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+  class Shield
+    def initialize(protection, uses)
+      @protection = protection
+      @uses = uses
+    end
 
-        public Shield(float _protection, int _uses) {
-            this.protection = _protection;
-            this.uses = _uses;
-        }
+    def protect
+      if @uses > 0
+        @uses -= 1
+        return @protection
+      end
+      0.0
+    end
 
-        public float protect(){
-            if(this.uses>0){
-                uses--;
-                return protection;
-            }
-            return 0f;
-        }
+    def to_s
+      "S[#{@protection}, #{@uses}]"
+    end
 
-        public String toString(){
-            return "S[" + protection + ", " + uses + "]";
-        }
-
-        public boolean discard() {
-            return Dice.discardElement(uses);
-    }
-}
+    def discard
+      Dice.discard_element(@uses)
+    end
+  end
+end

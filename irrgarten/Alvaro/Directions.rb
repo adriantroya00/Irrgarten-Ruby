@@ -1,16 +1,12 @@
-package irrgarten;
-//Alvaro
+# encoding: UTF-8
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-// Este enumerado representa  las direcciones en que se puede mover el jugador por el laberinto
-public enum Directions {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
-    
-}
-
-
+module Irrgarten
+  # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+  # Direcciones en que se puede mover el jugador por el laberinto
+  module Directions
+    LEFT  = :LEFT
+    RIGHT = :RIGHT
+    UP    = :UP
+    DOWN  = :DOWN
+  end
+end
