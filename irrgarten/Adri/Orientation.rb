@@ -1,11 +1,11 @@
-package irrgarten;
-//Adri
+module Irrgarten
+    # @authors Alvaro Perez Sanchez y Adrián Hernando Leal
+    # Tipos de desplazamientos existentes en el juego
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-// Representa los dos tipos de desplazamientos existentes en el juego. 
-public enum Orientation {
-    VERTICAL,
-    HORIZONTAL
-}
+    module Orientation
+    VERTICAL = :VERTICAL
+    HORIZONTAL = :HORIZONTAL
+    end
+end
+
+

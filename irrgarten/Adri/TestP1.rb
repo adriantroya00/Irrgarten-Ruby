@@ -1,176 +1,158 @@
-package irrgarten;
-import java.util.Random;
+# TESTP1.rb
+
+# require_relative "Weapon"
+# require_relative "Shield"
+# require_relative "GameState"
+# require_relative "Dice"
+# require_relative "Directions"
+# require_relative "Orientation"
+# require_relative "GameCharacter"
+
+# ======================================================
+# 1. Prueba Weapon
+# ======================================================
+puts "==== PRUEBAS ESPADA ===="
+
+espada = Weapon.new(5,5)
+usable_1 = true
+
+begin
+  puts "La espada ataca con #{espada.attack}"
+
+  if espada.discard
+    puts "No se descartó la espada"
+    puts espada
+  else 
+    puts "Se descartó la espada"
+    usable_1 = false
+  end
+end while usable_1
+
+# ======================================================
+# 2. Prueba Shield
+# ======================================================
+puts "==== PRUEBAS ESCUDO ===="
+
+escudo = Shield.new(3,3)
+usable_2 = true
+
+begin
+  puts "El escudo defiende con #{escudo.defense}"
+
+  if escudo.discard
+    puts "No se descartó el escudo"
+    puts escudo
+  else 
+    puts "Se descartó el escudo"
+    usable_2 = false
+  end
+end while usable_2
+
+# ======================================================
+# 2. Prueba GameState
+# ======================================================
+puts "==== PRUEBAS GAMESTATE ===="
+
+gs = GameState.new("lab1", "jugadores", "monstruos", 0, false, "log inicial")
+
+puts "El laberinto es: #{gs.labyrinth}"
+puts "Los jugadores son: #{gs.players}"
+puts "Los monstruos son: #{gs.monsters}"
+puts "El jugador actual es: #{gs.current_player}"
+puts "El ganador es: #{gs.winner}"
+puts "El log es: #{gs.log}"
+
+# ======================================================
+# 4. Prueba Enumerados
+# ======================================================
+puts "==== PRUEBAS ENUMERADOS ===="
+
+dir = Directions::LEFT
+ori = Orientation::VERTICAL
+gc = GameCharacter::MONSTER
+
+puts "La dirección es: #{dir}"
+puts "La orientación es: #{ori}"
+puts "El carácter de juego es: #{gc}"
+
+puts "Todas las direcciones:"
+Directions.values.each do |direccion|
+    puts "La dirección es: #{direccion}"
+end
+
+puts "Todas las orientaciones:"
+Orientation.values.each do |orientacion|
+    puts "La orientación es: #{orientacion}"
+end
+
+puts "Todas los tipos de personajes:"
+GameCharacter.values.each do |personaje|
+    puts "El carácter de juego es: #{personaje}"
+end
+
+# ======================================================
+# 5. Pruebas Dice
+# ======================================================
+puts "========= PRUEBAS ENUMERADOS (100 pruebas por metodo)====="
+
+# randomPos
+puts "Dirección aleatoria: #{Dice.random_pos(5)}"
+
+# whoStarts
+100.times do
+    puts "Empieza el jugador: #{Dice.who_starts(3)}"
+end
+
+# randomIntelligence y randomStrength
+100.times do
+    puts "Inteligencia: #{Dice.random_intelligence}"
+    puts "Fuerza: #{Dice.random_strength}"
+end
+
+# resurrectPlayer
+resurrect_count = 0
+
+100.times do
+    resurrect_count += 1 if Dice.resurrect_player
+end
+
+puts "Veces resucitadas: #{resurrect_count}"
+
+# weaponsReward, shieldsReward, healthReward
+100.times do |i|
+    puts "------ #{i} ------"
+    puts "Armas: #{Dice.weapons_reward}"
+    puts "Escudos: #{Dice.shields_reward}"
+    puts "Vida: #{Dice.health_reward}"
+end
+
+# weaponPower, shieldPower
+100.times do |i|
+    puts "------ #{i} ------"
+    puts "Poder Arma: #{Dice.weapon_power}"
+    puts "Poder Escudo: #{Dice.shield_power}"
+end
+
+# usesLeft
+100.times do |i|
+    puts "------ #{i} ------"
+    puts "El objeto empezara con: #{Dice.uses_left} usos"
+end
+
+# intensity
+100.times do |i|
+    puts "------ #{i} ------"
+    puts "Se usara una intensidad de: #{Dice.intensity(5)} usos"
+end
+
+# discardElement
+discard_count = 0
+
+10_000.times do
+    discard_count += 1 if Dice.discard_element(0)
+end
+
+puts "Veces descartado: #{discard_count}"
 
 
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-public class TestP1 {
-
-    private static final Random generator = new Random();
-    public static void main(String[] args) {
-    
-        // ======================================================
-        // 1. Prueba Weapon
-        // ======================================================
-        System.out.println("===== PRUEBAS ESPADA =====");
-
-        Weapon espada = new Weapon(5,5);
-
-        boolean usable1 = true;
-
-        do {
-            System.out.println("La espada ataca con " + espada.attack());
-
-            if(espada.discard()){
-                System.out.println("NO se ha descartado la espada");
-                System.out.println(espada.toString());
-
-            } else {
-                System.out.println("SI se ha descartado la espada");
-                usable1 = false;
-            }
-        } while(usable1);
-
-        // ======================================================
-        // 2. Prueba Shield
-        // ======================================================
-
-        System.out.println("===== PRUEBAS ESCUDO =====");
-
-        Shield escudo = new Shield(3,4);
-
-        boolean usable2 = true;
-
-        do {
-            System.out.println("El escudo defiende con " + escudo.protect());
-
-            if(escudo.discard()){
-                
-                System.out.println("NO se ha descartado el escudo");
-                System.out.println(escudo.toString());
-
-            } else {
-                System.out.println("SI se ha descartado el escudo");
-                usable2 = false;
-            }
-        } while(usable2);
-
-        // ======================================================
-        // 3. Prueba GameState
-        // ======================================================
-
-        System.out.println("===== PRUEBAS GAMESTATE =====");
-
-        GameState gs = new GameState("lab1", "jugadores", "monstruos", 0, false, "log inicial");
-
-        System.out.println("El laberinto es: " + gs.getLabyrinth());
-        System.out.println("Los jugadores son: " + gs.getPlayers());
-        System.out.println("Los monstruos son: " + gs.getMonsters());
-        System.out.println("El jugador actual es: " + gs.getCurrentPlayer());
-        System.out.println("Ganador " + gs.isWinner());
-        System.out.println("El log es:" + gs.getLog());
-
-        // ======================================================
-        // 4. Prueba Enumerados
-        // ======================================================
-
-        System.out.println("===== PRUEBAS ENUMERADOS =====");
-
-        Directions dir = Directions.LEFT;
-        Orientation ori = Orientation.HORIZONTAL;
-        GameCharacter gc = GameCharacter.MONSTER;
-
-        System.out.println("La direccion es: " + dir);
-        System.out.println("La orientacion es: " + ori);
-        System.out.println("El personaje es un: " + gc);
-
-        System.out.println("Todas las direcciones: ");
-        for (Directions d : Directions.values()){
-            System.out.println("La direccion es: " + d);
-        }
-
-        System.out.println("Todas las orientaciones: ");
-        for (Orientation o : Orientation.values()){
-            System.out.println("La direccion es: " + o);
-        }
-
-        System.out.println("Todos los tipos de personajes: ");
-        for (GameCharacter c : GameCharacter.values()){
-            System.out.println("La direccion es: " + c);
-        }
-
-        
-
-        // ======================================================
-        // 5. Pruebas Dice
-        // ======================================================
-
-        System.out.println("===== PRUEBAS ENUMERADOS (100 pruebas por metodo)=====");
-
-        // randomPos
-        System.out.println("Direccion aleatoria (randomPos): " + Dice.randomPos(5));
-
-        // whoStarts
-        for (int i = 0 ; i < 100 ; i++)
-        System.out.println("Empieza el jugador: " + Dice.whoStarts(3));
-        
-        // randomIntelligence y randomStrength
-        for (int i = 0 ; i < 100 ; i++){
-            System.out.println("Inteligencia: " + Dice.randomIntelligence());
-            System.out.println("Fuerza: " + Dice.randomStrength());
-        }
-       
-        
-
-        //resurrectPlayer
-        int resurrect_count = 0;
-        for (int i = 0 ; i < 100 ; i++){
-            if(Dice.resurrectPlayer())
-                resurrect_count++;
-        }
-        System.out.println("Veces resucitadas: " + resurrect_count);
-
-        // weaponReward, shieldReward y healthReward 
-        for (int i = 0 ; i < 100 ; i++){
-            System.out.println("------- " + i + " -------");
-            System.out.println("Armas: " + Dice.weaponsReward());
-            System.out.println("Escudos: " + Dice.shieldsReward());
-            System.out.println("Vida: " + Dice.healthReward());
-        }
-
-        // weaponPower y shieldPower
-        for (int i = 0 ; i < 100 ; i++){
-            System.out.println("------- " + i + " -------");
-            System.out.println("Poder Arma: " + Dice.weaponPower());
-            System.out.println("Poder Escudo: " + Dice.shieldPower());
-        }
-
-        //usesLeft
-        for (int i = 0 ; i < 100 ; i++){
-            System.out.println("------- " + i + " -------");
-            System.out.println("El objeto empezara con: " + Dice.usesLeft() + " usos");
-        }
-
-        //intensity
-        for (int i = 0 ; i < 100 ; i++){
-            System.out.println("------- " + i + " -------");
-            System.out.println("Se usara una intensidad de: " + Dice.intensity(5) + " usos");
-        }
-
-        //discardElement
-        int discard_count = 0;
-    
-        for (int i = 0 ; i < 10000 ; i++){
-            if(Dice.discardElement(0))
-                discard_count++;
-        }
-
-        System.out.println("Veces descartado: " + discard_count);
-
-        
-        
-
-    }
-}

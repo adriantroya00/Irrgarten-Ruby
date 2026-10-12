@@ -1,39 +1,26 @@
-package irrgarten;
-//Adri
+module Irrgarten
+    # @authors Alvaro Perez Sanchez y Adrián Hernando Leal
+    # Tipos de armas existentes en el juego
 
+    class Weapon
+        def initialize(power, uses)
+            @power = power
+            @uses = uses
+        end
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-public class Weapon {
-    private float power;
-    private int uses;
+        def attack
+            if @uses > 0
+                @uses -= 1
+                return @power
+            end
+            0.0
+        end
 
-    public Weapon(float power, int uses) {
-        this.power = power;
-        this.uses = uses;
-    }
+        def to_s
+            "W[#{@power}, #{@uses}]"
+        end
 
-    public float attack() {
-        if (uses > 0) {
-            uses--;
-            return power;
-        }
-        return 0;
-    }
- 
-    public String toString() {
-       return "W[" + power + ", " + uses + "]";
-    }
-
-    public boolean discard() {
-        return Dice.discardElement(uses);
-    }
-
-    public void reduceUses() {
-        uses--;
-    }
-
-
-
-}
+        def discard
+            Dice.discard_element(@uses)
+        end
+end
