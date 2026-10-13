@@ -23,4 +23,5 @@ module Irrgarten
         def discard
             Dice.discard_element(@uses)
         end
+    end
 end

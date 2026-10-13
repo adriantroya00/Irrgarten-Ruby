@@ -1,12 +1,14 @@
 # TESTP1.rb
 
-# require_relative "Weapon"
-# require_relative "Shield"
-# require_relative "GameState"
-# require_relative "Dice"
-# require_relative "Directions"
-# require_relative "Orientation"
-# require_relative "GameCharacter"
+require_relative 'Weapon'
+require_relative 'Shield'
+require_relative 'GameState'
+require_relative 'Dice'
+require_relative 'Directions'
+require_relative 'Orientation'
+require_relative 'GameCharacter'
+
+include Irrgarten
 
 # ======================================================
 # 1. Prueba Weapon
@@ -37,7 +39,7 @@ escudo = Shield.new(3,3)
 usable_2 = true
 
 begin
-  puts "El escudo defiende con #{escudo.defense}"
+  puts "El escudo defiende con #{escudo.protect}"
 
   if escudo.discard
     puts "No se descartó el escudo"
@@ -76,17 +78,20 @@ puts "La orientación es: #{ori}"
 puts "El carácter de juego es: #{gc}"
 
 puts "Todas las direcciones:"
-Directions.values.each do |direccion|
+Directions.constants.each do |d|
+    direccion = Directions.const_get(d)
     puts "La dirección es: #{direccion}"
 end
 
 puts "Todas las orientaciones:"
-Orientation.values.each do |orientacion|
+Orientation.constants.each do |o|
+    orientacion = Orientation.const_get(o)
     puts "La orientación es: #{orientacion}"
 end
 
 puts "Todas los tipos de personajes:"
-GameCharacter.values.each do |personaje|
+GameCharacter.constants.each do |gc|
+    personaje = GameCharacter.const_get(gc)
     puts "El carácter de juego es: #{personaje}"
 end
 
