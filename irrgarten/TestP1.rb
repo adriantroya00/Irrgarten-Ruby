@@ -21,7 +21,7 @@ usable_1 = true
 begin
   puts "La espada ataca con #{espada.attack}"
 
-  if espada.discard
+  if !espada.discard
     puts "No se descartó la espada"
     puts espada
   else 
@@ -41,7 +41,7 @@ usable_2 = true
 begin
   puts "El escudo defiende con #{escudo.protect}"
 
-  if escudo.discard
+  if !escudo.discard
     puts "No se descartó el escudo"
     puts escudo
   else 
