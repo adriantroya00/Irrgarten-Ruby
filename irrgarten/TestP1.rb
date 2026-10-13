@@ -1,12 +1,12 @@
 # TESTP1.rb
 
-# require_relative "Weapon"
-# require_relative "Shield"
-# require_relative "GameState"
-# require_relative "Dice"
-# require_relative "Directions"
-# require_relative "Orientation"
-# require_relative "GameCharacter"
+require_relative "Weapon"
+require_relative "Shield"
+require_relative "GameState"
+require_relative "Dice"
+require_relative "Directions"
+require_relative "Orientation"
+require_relative "GameCharacter"
 
 # ======================================================
 # 1. Prueba Weapon
