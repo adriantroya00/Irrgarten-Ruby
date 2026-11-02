@@ -1,5 +1,5 @@
 module Irrgarten
-    # @authors Alvaro Perez Sanchez y Adrián Hernando Leal
+    @authors Alvaro Perez Sanchez y Adrián Hernando Leal
     # Tipos de armas existentes en el juego
 
     class Weapon
