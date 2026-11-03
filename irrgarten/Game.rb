@@ -1,4 +1,4 @@
-module Irrgarten
+
 
   class Game 
     MAX_ROUNDS = 10;
