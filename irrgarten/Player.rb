@@ -100,7 +100,7 @@ module Irrgarten
     end
 
     def sum_shields
-      @shields.sum(0.0) { |shield| shield.defend } # recorre array, se aplica el bloque a cada elemento y suma resultados (echale un vistazo por si acaso)
+      @shields.sum(0.0) { |shield| shield.protect } # recorre array, se aplica el bloque a cada elemento y suma resultados (echale un vistazo por si acaso)
     end
   end
 end

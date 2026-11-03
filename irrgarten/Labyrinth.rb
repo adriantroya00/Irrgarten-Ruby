@@ -11,23 +11,23 @@ class Labyrinth
 
   def initialize(n_rows, n_cols, exit_row, exit_col)
     @n_rows = n_rows
-    @n_Cols = n_cols
+    @n_cols = n_cols
     @exit_row = exit_row
     @exit_col = exir_col
   end
 
-  def spread_players
+  def spread_players(players)
     raise NotImplementedError
   end
 
   def have_a_winner
-    @players[exit_row][exit_col] != nil
+    @players[@exit_row][@exit_col] != nil
   end
 
-  def to_string
+  def to_s
     "Laberinto {" + 
     "\n Numero de Filas = " + @n_rows + 
-    "\n Numero de Columnas = " + @n_Cols + 
+    "\n Numero de Columnas = " + @n_cols + 
     "\n Fila de salida = " + @exit_row + 
     "\n Columna de salida = " + @exit_col + 
     "\n}\n"
@@ -35,21 +35,21 @@ class Labyrinth
 
   def add_monster(row, col, monster)
     if pos_ok(row, col) && empty_pos(row,col)
-      @map[row][col] = MONSTER_CHAR
+      @labyrinth[row][col] = MONSTER_CHAR
       @monsters[row][col] = monster
       monster.set_pos(row, col)
     end
   end
 
-  def put_player
+  def put_player(direction, player)
     raise NotImplementedError
   end
 
-  def add_block
+  def add_block(orientation, start_row, start_col, length)
     raise NotImplementedError
   end
 
-  def valid_moves
+  def valid_moves(row, col)
     raise NotImplementedError
   end
 
@@ -57,7 +57,7 @@ class Labyrinth
 
   def pos_ok(row, col)
     0 <= row && row <= @n_rows &&
-    0 <= col && col <= @n_Cols
+    0 <= col && col <= @n_cols
   end
 
   def empty_pos(row, col)
