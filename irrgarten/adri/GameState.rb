@@ -3,8 +3,6 @@
 module Irrgarten
   # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
   class GameState
-    attr_reader :labyrinth, :players, :monsters, :current_player, :winner, :log
-
     # labyrinth: mapa
     # players: información de los jugadores
     # monsters: información de los monstruos

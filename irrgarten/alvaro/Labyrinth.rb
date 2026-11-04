@@ -13,7 +13,7 @@ class Labyrinth
     @n_rows = n_rows
     @n_cols = n_cols
     @exit_row = exit_row
-    @exit_col = exir_col
+    @exit_col = exit_col
   end
 
   def spread_players(players)
