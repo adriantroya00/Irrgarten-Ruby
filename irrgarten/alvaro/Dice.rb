@@ -16,67 +16,67 @@ module Irrgarten
     GENERATOR = Random.new
 
     # Fila/columna aleatoria en [0, max)
-    def self.random_pos(max)
+    def random_pos(max)
       GENERATOR.rand(max)
     end
 
     # Índice del jugador que empieza (los jugadores se numeran desde 0)
-    def self.who_starts(nplayers)
+    def who_starts(nplayers)
       GENERATOR.rand(nplayers)
     end
 
     # Inteligencia aleatoria en [0, MAX_INTELLIGENCE]
-    def self.random_intelligence
+    def random_intelligence
       GENERATOR.rand * MAX_INTELLIGENCE
     end
 
     # Fuerza aleatoria en [0, MAX_STRENGTH]
-    def self.random_strength
+    def random_strength
       GENERATOR.rand * MAX_STRENGTH
     end
 
     # Si un jugador muerto debe ser resucitado o no
-    def self.resurrect_player
+    def resurrect_player
       GENERATOR.rand < RESURRECT_PROB
     end
 
     # Armas recibidas al ganar el combate
-    def self.weapons_reward
+    def weapons_reward
       GENERATOR.rand(WEAPONS_REWARD)
     end
 
     # Escudos recibidos al ganar el combate
-    def self.shields_reward
+    def shields_reward
       GENERATOR.rand(SHIELDS_REWARD)
     end
 
     # Vida recibida al ganar el combate
-    def self.health_reward
+    def health_reward
       GENERATOR.rand(HEALTH_REWARD)
     end
 
     # Potencia de un arma en [0, MAX_ATTACK]
-    def self.weapon_power
+    def weapon_power
       GENERATOR.rand * MAX_ATTACK
     end
 
     # Potencia de un escudo en [0, MAX_SHIELD]
-    def self.shield_power
+    def shield_power
       GENERATOR.rand * MAX_SHIELD
     end
 
     # Usos que se asignarán a un arma/escudo
-    def self.uses_left
+    def uses_left
       GENERATOR.rand(MAX_USES)
     end
 
     # Competencia aplicada, valor aleatorio en [0, competence]
-    def self.intensity(competence)
+    def intensity(competence)
       GENERATOR.rand * competence
     end
 
     # Comprueba si se descarta un arma/escudo al usarlo
-    def self.discard_element(uses_left)
+    def discard_element(uses_left)
       GENERATOR.rand(MAX_USES) >= uses_left
     end
   end
