@@ -1,4 +1,7 @@
+# encoding: UTF-8
 # TESTP1.rb
+# @author Alvaro Perez Sanchez y 
+# @author Adrian Hernando Leal
 
 require_relative 'Weapon'
 require_relative 'Shield'

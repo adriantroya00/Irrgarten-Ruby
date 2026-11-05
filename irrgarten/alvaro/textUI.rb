@@ -1,3 +1,4 @@
+# encoding: UTF-8
 
 require 'io/console'
 require_relative 'directions'
@@ -5,6 +6,7 @@ require_relative 'directions'
 module UI
 
   class TextUI
+
 
     #https://gist.github.com/acook/4190379
     def read_char
@@ -56,6 +58,8 @@ module UI
       output
     end
 
+    # @author Alvaro Perez Sanchez
+    # @author Adrian Hernando Leal
     def show_game(game_state)
       
     end

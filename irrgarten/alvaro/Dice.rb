@@ -1,7 +1,9 @@
 # encoding: UTF-8
 
 module Irrgarten
-  # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+  # @author Alvaro Perez Sanchez 
+  # @author Adrian Hernando Leal
+  
   class Dice
     MAX_USES = 5                # Número máximo de usos de armas y escudos
     MAX_INTELLIGENCE = 10.0     # Valor máximo para la inteligencia de jugadores y monstruos

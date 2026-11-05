@@ -1,4 +1,8 @@
+# encoding: UTF-8
+
 module Control
+  # @author Alvaro Perez Sanchez 
+  # @author Adrian Hernando Leal
 
   class Controller
     def initialize(game,view)

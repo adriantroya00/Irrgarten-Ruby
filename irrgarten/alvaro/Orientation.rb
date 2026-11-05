@@ -1,5 +1,8 @@
+# encoding: UTF-8
+
 module Irrgarten
-    # @authors Alvaro Perez Sanchez y Adrián Hernando Leal
+    # @author Alvaro Perez Sanchez 
+    # @author Adrián Hernando Leal
     # Tipos de desplazamientos existentes en el juego
 
     module Orientation

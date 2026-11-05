@@ -1,5 +1,9 @@
-module Irrgarten
+# encoding: UTF-8
 
+module Irrgarten
+  # @author Alvaro Perez Sanchez
+  # @author Adrian Hernando Leal
+  
   class Labyrinth
     BLOCK_CHAR    = 'X'
     EMPTY_CHAR    = '-'

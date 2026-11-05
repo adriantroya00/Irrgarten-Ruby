@@ -1,6 +1,6 @@
 module Irrgarten
-
-@authors Alvaro Perez Sanchez y Adrián Hernando Leal
+  # @author Alvaro Perez Sanchez 
+  # @author Adrián Hernando Leal
 
   class Monster
     @@INITIAL_HEALTH = 5
