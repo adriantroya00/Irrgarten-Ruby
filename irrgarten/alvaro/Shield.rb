@@ -13,7 +13,7 @@ module Irrgarten
     def protect
       if @uses > 0
         @uses -= 1
-        return @protection
+        @protection
       end
       0.0
     end

@@ -22,15 +22,15 @@ espada = Weapon.new(5,5)
 usable_1 = true
 
 begin
-  puts "La espada ataca con #{espada.attack}"
+    puts "La espada ataca con #{espada.attack}"
 
-  if !espada.discard
-    puts "No se descartó la espada"
-    puts espada
-  else 
-    puts "Se descartó la espada"
-    usable_1 = false
-  end
+    if !espada.discard
+        puts "No se descartó la espada"
+        puts espada
+    else 
+        puts "Se descartó la espada"
+        usable_1 = false
+    end
 end while usable_1
 
 # ======================================================
@@ -42,15 +42,15 @@ escudo = Shield.new(3,3)
 usable_2 = true
 
 begin
-  puts "El escudo defiende con #{escudo.protect}"
+    puts "El escudo defiende con #{escudo.protect}"
 
-  if !escudo.discard
-    puts "No se descartó el escudo"
-    puts escudo
-  else 
-    puts "Se descartó el escudo"
-    usable_2 = false
-  end
+    if !escudo.discard
+        puts "No se descartó el escudo"
+        puts escudo
+    else 
+        puts "Se descartó el escudo"
+        usable_2 = false
+    end
 end while usable_2
 
 # ======================================================

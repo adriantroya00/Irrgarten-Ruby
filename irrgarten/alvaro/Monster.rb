@@ -40,12 +40,12 @@ module Irrgarten
     end
 
     def to_s
-      "Monstruo {\n" +
-      "Inteligencia = #{@intelligence}\n" +
-      " Fuerza = #{@strength}\n" +
-      " Vida = #{@health}\n" +
-      " Fila = #{@row}\n" +
-      " Columna = #{@col}\n}\n"
+      "Monstruo {\n
+      Inteligencia = #{@intelligence}\n
+      Fuerza = #{@strength}\n 
+      Vida = #{@health}\n
+      Fila = #{@row}\n
+      Columna = #{@col}\n}\n"
     end
   private
     def got_wounded

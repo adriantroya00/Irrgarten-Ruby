@@ -13,7 +13,7 @@ module Irrgarten
         def attack
             if @uses > 0
                 @uses -= 1
-                return @power
+                @power
             end
             0.0
         end
@@ -25,5 +25,8 @@ module Irrgarten
         def discard
             Dice.discard_element(@uses)
         end
+
+        def reduce_uses()
+            @uses -= 1
     end
 end
