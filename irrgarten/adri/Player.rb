@@ -1,6 +1,11 @@
-module Irrgarten
-  @authors Alvaro Perez Sanchez y Adrián Hernando Leal
+# enconding: UTF-8
+@authors Alvaro Perez Sanchez y Adrián Hernando Leal
 
+require_relative 'Dice'
+require_relative 'Weapon'
+require_relative 'Shield'
+
+module Irrgarten
   class Player
     @@MAX_WEAPONS = 2
     @@MAX_SHIELDS = 3
@@ -39,7 +44,16 @@ module Irrgarten
     @health <= 0.0
   end
 
-  # def move(direction, valid_moves)
+  def move(direction, valid_moves)
+    size = valid_moves.size
+    contained = valid_moves.include?(direction)
+
+    if size > 0 && !contained
+      valid_moves.first
+    else
+      direction
+    end
+  end
   
   def attack
     @strength + sum_weapons
@@ -49,7 +63,23 @@ module Irrgarten
     manage_hit(received_attack)
   end
 
-  # def receive_reward
+  def receive_reward
+    w_reward = Dice.weapons_reward
+    s_rewarc = Dice.shields_reward
+
+    w_reward.times do
+      wnew = new_weapon
+      receive_weapon(wnew)
+    end
+
+    s_rewarc.times do
+      snew = new_shield
+      receive_shield(snew)
+    end
+
+    extra_health = Dice.health_reward
+    @health += extra_health
+  end  
 
   def to_s
      "Jugador {\n" +
@@ -65,9 +95,24 @@ module Irrgarten
 
     private
 
-    # def receive_weapon(w)
+    def receive_weapon(w)
+      # delete_if equivale al iterator.remove
+      @weapons.delete_if { |wi| wi.discard }
 
-    # def receive_shield(s)
+      if @weapons.size < MAX_WEAPONS
+        @weapons << w
+      end
+    end   
+    
+    
+    def receive_shield(s)
+      # delete_if equivale al iterator.remove
+      @shields.delete_if { |si| si.discard }
+
+      if @shields.size < MAX_SHIELDS
+        @shields << s 
+      end
+    end
 
     def new_weapon
       Weapon.new(Dice.weapon_power, Dice.uses_left)
@@ -81,7 +126,25 @@ module Irrgarten
       @intelligence + sum_shields
     end
 
-    # def manage_hit(received_attack)
+    def manage_hit(received_attack)
+      defense = defensive_energy
+
+      if defense < received_attack
+        got_wounded
+        inc_consecutive_hits
+      else
+        reset_hits
+      end
+
+      if @consecutive_hits == HITS2LOSE || dead
+        reset_hits
+        lose = true
+      else
+        lose = false
+      end
+
+      lose
+    end
 
     def reset_hits
       @consecutive_hits = 0
@@ -96,11 +159,19 @@ module Irrgarten
     end
 
     def sum_weapons
-      @weapons.sum(0.0) { |weapon| weapon.attack } # recorre array, se aplica el bloque a cada elemento y suma resultados (echale un vistazo por si acaso)
+      sum_total = 0.0
+      @weapons.each do |weapon|
+        sum_total += weapon.attack unless weapon.nil? # unless es el contrario de if
+      end
+      sum_total
     end
 
     def sum_shields
-      @shields.sum(0.0) { |shield| shield.protect } # recorre array, se aplica el bloque a cada elemento y suma resultados (echale un vistazo por si acaso)
+      sum_total = 0.0
+      @shields.each do |shield|
+        sum_total += shield.protect unless shield.nil? # unless es el contrario de if
+      end
+      sum_total
     end
   end
 end
