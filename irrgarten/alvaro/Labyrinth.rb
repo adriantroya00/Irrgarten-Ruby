@@ -23,7 +23,7 @@ module Irrgarten
     end
 
     def spread_players(players)
-      for p in players
+      players.each do
         pos = random_empty_pos()
         put_player_2D(-1, -1, pos[ROW], pos[COL], p)
       end
@@ -173,6 +173,7 @@ module Irrgarten
     end
 
     def put_player_2D(old_row, old_col, row, col, player)
+      output = nil
       if can_step_on(row, col)
         if pos_ok(old_row, old_col)
           p = @players[old_row][old_col]
