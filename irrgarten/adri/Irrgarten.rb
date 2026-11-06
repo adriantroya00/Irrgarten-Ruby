@@ -2,20 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-module Irrgarten;
-//Adri
 
-/**
- * @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
- */
-class Irrgarten 
+ #encoding: UTF-8
+ @authors Alvaro Perez Sanchez y Adrian Hernando Leal 
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-end
+ require_relative 'Game'
+ require_relative 'textUI'
+ require_relative 'controller'
+
+ module Irrgarten
+    view = UI::textUI.new
+    game = Game.new(2,2)
+    controller = Control::Controller.new(game, view)
+
+    controller.play
+ end
+ 
+
+ 
+
+
+
     
 
