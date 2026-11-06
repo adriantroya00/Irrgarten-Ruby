@@ -1,5 +1,7 @@
 # enconding: UTF-8
-@authors Alvaro Perez Sanchez y Adrián Hernando Leal
+# @author Alvaro Perez Sanchez
+# @author Adrian Hernando Leal 
+
 
 require_relative 'Dice'
 require_relative 'Weapon'

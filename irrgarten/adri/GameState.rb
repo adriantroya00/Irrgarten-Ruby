@@ -1,7 +1,8 @@
 # encoding: UTF-8
-
+# @author Alvaro Perez Sanchez
+# @author Adrian Hernando Leal
 module Irrgarten
-  # @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+
   class GameState
     attr_reader :labyrinth, :players, :monsters, :current_player, :winner, :log
     

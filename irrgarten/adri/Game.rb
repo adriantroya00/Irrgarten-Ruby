@@ -1,5 +1,6 @@
 # encoding: UTF-8
-# @authors Alvaro Perez Sanchez y Adrian Hernando Leal
+# @author Alvaro Perez Sanchez
+# @author Adrian Hernando Leal
 
 require_relative 'Directions'
 require_relative 'Orientation'
