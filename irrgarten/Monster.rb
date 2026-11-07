@@ -27,6 +27,7 @@ module Irrgarten
 
     def defend(received_attack)
       is_dead = dead()
+      
       if !is_dead
         defensive_energy = Dice.intensity(@intelligence)
 

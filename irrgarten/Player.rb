@@ -176,18 +176,22 @@ module Irrgarten
     def sum_weapons
       sum_total = 0.0
       @weapons.each do |weapon|
-        sum_total += weapon.attack unless weapon.nil? # unless es el contrario de if
-      end
+        if !weapon.nil?
+          sum_total += weapon.attack 
+        end
       sum_total
     end
 
     def sum_shields
       sum_total = 0.0
       @shields.each do |shield|
-        sum_total += shield.protect unless shield.nil? # unless es el contrario de if
+        if !shield.nil?
+          sum_total += shield.protect 
+        end
       end
       sum_total
     end
+
   end
 end
   

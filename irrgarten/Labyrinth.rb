@@ -6,7 +6,7 @@ module Irrgarten
   require_relative 'Dice'
   require_relative 'Directions'
   require_relative 'Orientation'
-  
+
   class Labyrinth
     BLOCK_CHAR    = 'X'
     EMPTY_CHAR    = '-'
@@ -143,7 +143,7 @@ module Irrgarten
 
     def update_old_pos(row, col)
       if pos_ok(row, col)
-        if @labyrinth[row][col] == COMBAT_CHAR
+        if combat_pos(row, col)
           @labyrinth[row][col] = MONSTER_CHAR
         else
           @labyrinth[row][col] = EMPTY_CHAR

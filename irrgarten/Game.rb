@@ -122,6 +122,7 @@ class Game
       winner = GameCharacter::PLAYER
 
       player_attack = @current_player.attack
+
       lose = monster.defend(player_attack)
 
       while !lose && (rounds < MAX_ROUNDS)
@@ -129,6 +130,7 @@ class Game
         rounds += 1
 
         monster_attack = monster.attack
+        
         lose = @current_player.defend(monster_attack)
 
         if !lose

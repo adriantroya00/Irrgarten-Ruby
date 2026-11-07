@@ -67,10 +67,10 @@ module UI
       puts "=====MONSTRUOS====="
       puts "#{game_state.get_monsters()}"
       
-      puts "Turno del jugador: #{game_state.get_current_player()}"
-      
       puts "=====LOG====="
       puts "#{game_state.get_log()}"
+      
+      puts "Turno del jugador: #{game_state.get_current_player()}"
       
       puts "=====LABERINTO====="
       puts "#{game_state.get_labyrinth()}"
