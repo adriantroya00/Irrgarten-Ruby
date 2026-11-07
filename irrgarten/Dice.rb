@@ -18,67 +18,67 @@ module Irrgarten
     GENERATOR = Random.new
 
     # Fila/columna aleatoria en [0, max)
-    def random_pos(max)
+    def self.random_pos(max)
       GENERATOR.rand(max)
     end
 
     # Índice del jugador que empieza (los jugadores se numeran desde 0)
-    def who_starts(nplayers)
+    def self.who_starts(nplayers)
       GENERATOR.rand(nplayers)
     end
 
     # Inteligencia aleatoria en [0, MAX_INTELLIGENCE]
-    def random_intelligence
+    def self.random_intelligence
       GENERATOR.rand * MAX_INTELLIGENCE
     end
 
     # Fuerza aleatoria en [0, MAX_STRENGTH]
-    def random_strength
+    def self.random_strength
       GENERATOR.rand * MAX_STRENGTH
     end
 
     # Si un jugador muerto debe ser resucitado o no
-    def resurrect_player
+    def self.resurrect_player
       GENERATOR.rand < RESURRECT_PROB
     end
 
     # Armas recibidas al ganar el combate
-    def weapons_reward
-      GENERATOR.rand(WEAPONS_REWARD)
+    def self.weapons_reward
+      GENERATOR.rand(WEAPONS_REWARD + 1)
     end
 
     # Escudos recibidos al ganar el combate
-    def shields_reward
-      GENERATOR.rand(SHIELDS_REWARD)
+    def self.shields_reward
+      GENERATOR.rand(SHIELDS_REWARD + 1)
     end
 
     # Vida recibida al ganar el combate
-    def health_reward
-      GENERATOR.rand(HEALTH_REWARD)
+    def self.health_reward
+      GENERATOR.rand(HEALTH_REWARD + 1)
     end
 
     # Potencia de un arma en [0, MAX_ATTACK]
-    def weapon_power
+    def self.weapon_power
       GENERATOR.rand * MAX_ATTACK
     end
 
     # Potencia de un escudo en [0, MAX_SHIELD]
-    def shield_power
+    def self.shield_power
       GENERATOR.rand * MAX_SHIELD
     end
 
     # Usos que se asignarán a un arma/escudo
-    def uses_left
-      GENERATOR.rand(MAX_USES)
+    def self.uses_left
+      GENERATOR.rand(MAX_USES + 1)
     end
 
     # Competencia aplicada, valor aleatorio en [0, competence]
-    def intensity(competence)
+    def self.intensity(competence)
       GENERATOR.rand * competence
     end
 
     # Comprueba si se descarta un arma/escudo al usarlo
-    def discard_element(uses_left)
+    def self.discard_element(uses_left)
       GENERATOR.rand(MAX_USES) >= uses_left
     end
   end

@@ -4,6 +4,8 @@ module Irrgarten
   # @author Alvaro Perez Sanchez 
   # @author Adrian Hernando Leal
   
+  require_relative 'Dice'
+  
   class Shield
     def initialize(protection, uses)
       @protection = protection
@@ -14,8 +16,9 @@ module Irrgarten
       if @uses > 0
         @uses -= 1
         @protection
+      else
+        0.0
       end
-      0.0
     end
 
     def to_s

@@ -27,8 +27,8 @@ module Irrgarten
     end
 
     def spread_players(players)
-      players.each do
-        pos = random_empty_pos()
+      players.each do |p|
+        pos = random_empty_pos
         put_player_2D(-1, -1, pos[ROW], pos[COL], p)
       end
     end
@@ -67,7 +67,7 @@ module Irrgarten
     end
 
     def add_block(orientation, start_row, start_col, length)
-      if orientation == Orientation.VERTICAL
+      if orientation == Orientation::VERTICAL
         inc_row = 1
         inc_col = 0
       else
@@ -188,13 +188,13 @@ module Irrgarten
           end
         end
       
-        monster_pos = monster_pos(row, col)
+        monster_p = monster_pos(row, col)
 
-        if monster_pos
+        if monster_p
           @labyrinth[row][col] = COMBAT_CHAR
           output = @monsters[row][col]
         else 
-          @labyrinth[row][col] = player.get_number()
+          @labyrinth[row][col] = player.get_number
         end
 
         @players[row][col] = player

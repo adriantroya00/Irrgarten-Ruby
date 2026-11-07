@@ -3,14 +3,16 @@ module Irrgarten
   # @author Adrián Hernando Leal
 
   class Monster
-    @@INITIAL_HEALTH = 5
-    @@NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase 
+    INITIAL_HEALTH = 5
+    NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase 
 
     def initialize(name, intelligence, strength)
       @name = name
       @intelligence = intelligence
       @strength = strength
-      @health = @@INITIAL_HEALTH.to_f
+      @health = INITIAL_HEALTH.to_f
+      @row = NO_POS
+      @col = NO_POS
     end
 
     def dead

@@ -1,12 +1,11 @@
 # encoding: UTF-8
 
 require 'io/console'
-require_relative 'directions'
+require_relative 'Directions'
 
 module UI
 
   class TextUI
-
 
     #https://gist.github.com/acook/4190379
     def read_char
@@ -61,22 +60,24 @@ module UI
     # @author Alvaro Perez Sanchez
     # @author Adrian Hernando Leal
     def show_game(game_state)
-      puts "=====LABERINTO====="
-      puts "#{game_state.get_labyrinth()}"
-
+      
       puts "=====JUGADORES====="
       puts "#{game_state.get_players()}"
-
+      
       puts "=====MONSTRUOS====="
       puts "#{game_state.get_monsters()}"
-
+      
       puts "Turno del jugador: #{game_state.get_current_player()}"
       
       puts "=====LOG====="
       puts "#{game_state.get_log()}"
-
+      
+      puts "=====LABERINTO====="
+      puts "#{game_state.get_labyrinth()}"
+      
       if game_state.winner?
         puts "Hay un ganador. Fin de la partida"
+      end
     end
 
   end # class   

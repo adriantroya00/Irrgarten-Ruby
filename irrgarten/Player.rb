@@ -1,4 +1,4 @@
-# enconding: UTF-8
+# encoding: UTF-8
 # @author Alvaro Perez Sanchez
 # @author Adrian Hernando Leal 
 
@@ -9,11 +9,11 @@ require_relative 'Shield'
 
 module Irrgarten
   class Player
-    @@MAX_WEAPONS = 2
-    @@MAX_SHIELDS = 3
-    @@INITIAL_HEALTH = 10
-    @@HITS2LOSE = 3
-    @@NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase
+    MAX_WEAPONS = 2
+    MAX_SHIELDS = 3
+    INITIAL_HEALTH = 10
+    HITS2LOSE = 3
+    NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase
 
     attr_reader :row, :col, :number # esto equivale a los get row, col y number (debemos ponerlo en java)
 
@@ -22,9 +22,9 @@ module Irrgarten
       @name = "Player ##{@number}"
       @intelligence = intelligence
       @strength = strength
-      @health = @@INITIAL_HEALTH.to_f
-      @row = @@NO_POS
-      @col = @@NO_POS
+      @health = INITIAL_HEALTH.to_f
+      @row = NO_POS
+      @col = NO_POS
       @consecutive_hits = 0
       @weapons = [] # crean arrays vacios
       @shields = [] # crean arrays vacios
@@ -33,13 +33,25 @@ module Irrgarten
   def resurrect
     @weapons.clear
     @shields.clear
-    @health = @@INITIAL_HEALTH.to_f
+    @health = INITIAL_HEALTH.to_f
     @consecutive_hits = 0
   end
 
   def set_pos(row, col)
     @row = row
     @col = col
+  end
+
+  def get_row()
+    @row
+  end
+
+  def get_col()
+    @col
+  end
+
+  def get_number()
+    @number
   end
 
   def dead
@@ -84,7 +96,7 @@ module Irrgarten
   end  
 
   def to_s
-     "Jugador {\n" +
+      "Jugador {\n" +
       " Nombre = #{@name}\n" +
       " Numero = #{@number}\n" +
       " Inteligencia = #{@intelligence}\n" +

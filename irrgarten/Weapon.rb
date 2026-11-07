@@ -1,8 +1,10 @@
 # encoding: UTF-8
+# @author Alvaro Perez Sanchez
+# @author Adrián Hernando Leal
 module Irrgarten
-    # @author Alvaro Perez Sanchez
-    # @author Adrián Hernando Leal
+    
     # Tipos de armas existentes en el juego
+    require_relative 'Dice'
 
     class Weapon
         def initialize(power, uses)
@@ -14,8 +16,9 @@ module Irrgarten
             if @uses > 0
                 @uses -= 1
                 @power
+            else
+                0.0
             end
-            0.0
         end
 
         def to_s
@@ -26,7 +29,5 @@ module Irrgarten
             Dice.discard_element(@uses)
         end
 
-        def reduce_uses()
-            @uses -= 1
     end
 end

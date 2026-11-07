@@ -13,21 +13,20 @@ require_relative 'GameState'
 
 module Irrgarten
 class Game 
-    MAX_ROUNDS = 10;
+    MAX_ROUNDS = 10
 
     def initialize(n_players, n_monsters)
-      @players = [];
-      n_players.times do |i|
-        # para hacer de i un char hacemos ((char)('0+i))
-        @players << Player.new(('0'.ord + i).chr)
+      @players = []
+      n_players.times do |i|                
+        @players << Player.new(i.to_s, Dice.random_intelligence, Dice.random_strength)
       end
 
       @current_player_index = Dice.who_starts(n_players)
-      @current_player = @players[current_player_index]
+      @current_player = @players[@current_player_index]
 
-      @monsters = [];
+      @monsters = []
 
-      @labyrinth = Labyrinth.new (5, 5, 4, 4)
+      @labyrinth = Labyrinth.new(5, 5, 4, 4)
 
       @log = ""
 
@@ -73,15 +72,15 @@ class Game
     end
     
     
-    def get_game_state
+    def game_state
       labyrinth_str = @labyrinth.to_s
       players_str = @players.map(&:to_s).join
       monsters_str = @monsters.map(&:to_s).join
       
       GameState.new(
-        @labyrinth_str,
-        @players_str,
-        @monsters_str,
+        labyrinth_str,
+        players_str,
+        monsters_str,
         @current_player_index,
         finished,
         @log
@@ -91,8 +90,8 @@ class Game
     private
 
     def configure_labyrinth
-      @labyrinth.add_block(Orientation.Vertical, 1, 1, 2)
-      @labyrinth.add_block(orientation.Horizontal, 3, 2, 2)
+      @labyrinth.add_block(Orientation::VERTICAL, 1, 1, 2)
+      @labyrinth.add_block(Orientation::HORIZONTAL, 3, 2, 2)
 
       m1 = Monster.new("Adri", 2.0, 3.0)
       m2 = Monster.new("Alvaro", 1.5, 2.0)
@@ -106,7 +105,7 @@ class Game
 
     def next_player
       @current_player_index = (@current_player_index+1) % @players.length #o @players.size
-      @current_player = @players[current_player_index]
+      @current_player = @players[@current_player_index]
     end
     
     def actual_direction(preferred_direction)
@@ -126,7 +125,7 @@ class Game
       lose = monster.defend(player_attack)
 
       while !lose && (rounds < MAX_ROUNDS)
-        winner += GameCharacter::MONSTER
+        winner = GameCharacter::MONSTER
         rounds += 1
 
         monster_attack = monster.attack
@@ -189,7 +188,7 @@ class Game
     end
 
     def log_rounds(rounds, max)
-      @log += "Se han producido " + rounds + " de " + max + "rondas de combate\n"
+      @log += "Se han producido #{rounds}  de #{max} rondas de combate\n"
     end
   end
 end
