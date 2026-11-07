@@ -94,15 +94,18 @@ module Irrgarten
   end  
 
   def to_s
-      "Jugador {\n" +
-      " Nombre = #{@name}\n" +
-      " Numero = #{@number}\n" +
-      " Inteligencia = #{@intelligence}\n" +
-      " Fuerza = #{@strength}\n" +
-      " Vida = #{@health}\n" +
-      " Fila = #{@row}\n" +
-      " Columna = #{@col}\n" +
-      " Hits Consecutivos = #{@consecutive_hits}\n}\n"
+      "Jugador {
+      Nombre = #{@name}
+      Numero = #{@number}
+      Inteligencia = #{@intelligence}
+      Fuerza = #{@strength}
+      Vida = #{@health}
+      Fila = #{@row}
+      Columna = #{@col}
+      Hits Consecutivos = #{@consecutive_hits}
+      Armas = #{@weapons.join(' ')}
+      Escudos = #{@shields.join(' ')}
+      }\n"
     end
 
     private

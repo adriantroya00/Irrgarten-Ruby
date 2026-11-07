@@ -3,7 +3,7 @@ module Irrgarten
   # @author Adrián Hernando Leal
 
   require_relative 'Dice'
-  
+
   class Monster
     INITIAL_HEALTH = 5
     NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase 
@@ -44,12 +44,14 @@ module Irrgarten
     end
 
     def to_s
-      "Monstruo {\n
-      Inteligencia = #{@intelligence}\n
-      Fuerza = #{@strength}\n 
-      Vida = #{@health}\n
-      Fila = #{@row}\n
-      Columna = #{@col}\n}\n"
+      "Monstruo {
+      Nombre = #{@name}
+      Inteligencia = #{@intelligence}
+      Fuerza = #{@strength}
+      Vida = #{@health}
+      Fila = #{@row}
+      Columna = #{@col}
+      }\n"
     end
   private
     def got_wounded

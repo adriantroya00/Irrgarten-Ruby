@@ -109,8 +109,8 @@ class Game
     end
     
     def actual_direction(preferred_direction)
-      current_row = @current_player.row
-      current_col = @current_player.col
+      current_row = @current_player.get_row
+      current_col = @current_player.get_col
 
       valid_moves = @labyrinth.valid_moves(current_row, current_col)
 
