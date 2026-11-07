@@ -15,8 +15,6 @@ module Irrgarten
     HITS2LOSE = 3
     NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase
 
-    attr_reader :row, :col, :number # esto equivale a los get row, col y number (debemos ponerlo en java)
-
     def initialize(number, intelligence, strength)
       @number = number
       @name = "Player ##{@number}"
@@ -79,14 +77,14 @@ module Irrgarten
 
   def receive_reward
     w_reward = Dice.weapons_reward
-    s_rewarc = Dice.shields_reward
+    s_reward = Dice.shields_reward
 
     w_reward.times do
       wnew = new_weapon
       receive_weapon(wnew)
     end
 
-    s_rewarc.times do
+    s_reward.times do
       snew = new_shield
       receive_shield(snew)
     end

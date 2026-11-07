@@ -2,6 +2,8 @@ module Irrgarten
   # @author Alvaro Perez Sanchez 
   # @author Adrián Hernando Leal
 
+  require_relative 'Dice'
+  
   class Monster
     INITIAL_HEALTH = 5
     NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase 

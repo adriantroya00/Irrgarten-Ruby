@@ -3,6 +3,9 @@
 module Irrgarten
   # @author Alvaro Perez Sanchez
   # @author Adrian Hernando Leal
+  require_relative 'Dice'
+  require_relative 'Directions'
+  require_relative 'Orientation'
   
   class Labyrinth
     BLOCK_CHAR    = 'X'
