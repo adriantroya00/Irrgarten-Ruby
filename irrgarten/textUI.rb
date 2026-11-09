@@ -25,15 +25,15 @@ module UI
     end
 
     def next_move
-      print "Where? "
+      print "Where? "                                   
       got_input = false
-      while (!got_input)
-        c = read_char
-        case c
+      while (!got_input)                                    # cuando recibamos un imput actuamos
+        c = read_char                                       # caracter leido
+        case c                                              # depende lo que haya sido c actuamos
           when "\e[A"
-            puts "UP ARROW"
-            output = Irrgarten::Directions::UP
-            got_input = true
+            puts "UP ARROW"                                 # decimos cual ha sido la dir elegida
+            output = Irrgarten::Directions::UP              # la direccion es:
+            got_input = true                                # dejamos de comprobar pues hemos obtenido un imput
           when "\e[B"
             puts "DOWN ARROW"
             output = Irrgarten::Directions::DOWN

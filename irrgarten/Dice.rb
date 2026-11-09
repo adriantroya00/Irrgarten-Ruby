@@ -17,7 +17,7 @@ module Irrgarten
 
     GENERATOR = Random.new
 
-    # Fila/columna aleatoria en [0, max)
+    # Fila/columna aleatoria en [0, max), se define con self porque es una funcion de clase que no utiliza atributos de instancia
     def self.random_pos(max)
       GENERATOR.rand(max)
     end
