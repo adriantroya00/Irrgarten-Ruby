@@ -9,11 +9,17 @@ require_relative 'Shield'
 
 module Irrgarten
   class Player
+    #health y current_player se eliminara despues de probar la resurreccion
+    attr_writer :health
+    attr_reader :row, :col, :number
+
     MAX_WEAPONS = 2
     MAX_SHIELDS = 3
     INITIAL_HEALTH = 10
     HITS2LOSE = 3
     NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase
+
+    
 
     def initialize(number, intelligence, strength)
       @number = number
@@ -38,18 +44,6 @@ module Irrgarten
   def set_pos(row, col)
     @row = row
     @col = col
-  end
-
-  def get_row()
-    @row
-  end
-
-  def get_col()
-    @col
-  end
-
-  def get_number()
-    @number
   end
 
   def dead
@@ -179,6 +173,7 @@ module Irrgarten
         if !weapon.nil?
           sum_total += weapon.attack 
         end
+      end
       sum_total
     end
 

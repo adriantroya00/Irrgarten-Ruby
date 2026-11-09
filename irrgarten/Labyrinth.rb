@@ -60,8 +60,8 @@ module Irrgarten
     end
 
     def put_player(direction, player)
-      old_row = player.get_row()
-      old_col = player.get_col()
+      old_row = player.row
+      old_col = player.col
 
       new_pos = dir_2_pos(old_row, old_col, direction)
       monster = put_player_2D(old_row, old_col, new_pos[ROW], new_pos[COL], player)
@@ -109,6 +109,16 @@ module Irrgarten
       end
 
       output
+    end
+
+    #Cambiamos la visibilidad de esta funcion ya que la nececita Game para poder colocar monstruos en posiciones vacias
+    def random_empty_pos
+      begin
+        row = Dice.random_pos(@n_rows)  
+        col = Dice.random_pos(@n_cols)
+      end until empty_pos(row, col)
+
+      [row, col]
     end
 
     private
@@ -170,15 +180,6 @@ module Irrgarten
       [row,col]
     end
 
-    def random_empty_pos
-      begin
-        row = Dice.random_pos(@n_rows)  
-        col = Dice.random_pos(@n_cols)
-      end until empty_pos(row, col)
-
-      [row, col]
-    end
-
     def put_player_2D(old_row, old_col, row, col, player)
       output = nil
       if can_step_on(row, col)
@@ -197,7 +198,7 @@ module Irrgarten
           @labyrinth[row][col] = COMBAT_CHAR
           output = @monsters[row][col]
         else 
-          @labyrinth[row][col] = player.get_number
+          @labyrinth[row][col] = player.number
         end
 
         @players[row][col] = player

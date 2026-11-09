@@ -12,28 +12,54 @@ require_relative 'Monster'
 require_relative 'GameState'
 
 module Irrgarten
-class Game 
+  class Game 
+    attr_reader :current_player
     MAX_ROUNDS = 10
 
-    def initialize(n_players, n_monsters)
-      @players = []
-      n_players.times do |i|                
-        @players << Player.new(i.to_s, Dice.random_intelligence, Dice.random_strength)
+    def initialize(n_players,debug)
+      if(debug)
+        @players = []
+        n_players.times do |i|                
+          @players << Player.new(i.to_s, 1, 1)
+        end
+
+        @current_player_index = 0
+        @current_player = @players[@current_player_index]
+        
+        @monsters = []
+        
+        @labyrinth = Labyrinth.new(3, 3, 2, 2)
+        
+        
+        @log = ""
+        
+        configure_labyrinth_debug
+        
+        @labyrinth.send(:put_player_2D, -1, -1, 0, 0, @players[0])
+        @labyrinth.send(:put_player_2D, -1, -1, 0, 1, @players[1])
+        
+        
+      else
+        @players = []
+        n_players.times do |i|                
+          @players << Player.new(i.to_s, Dice.random_intelligence, Dice.random_strength)
+        end
+  
+        @current_player_index = Dice.who_starts(n_players)
+        @current_player = @players[@current_player_index]
+  
+        @monsters = []
+        
+        @labyrinth = Labyrinth.new(5, 5, 4, 4)
+  
+        @log = ""
+  
+        configure_labyrinth
+  
+        @labyrinth.spread_players(@players)
       end
-
-      @current_player_index = Dice.who_starts(n_players)
-      @current_player = @players[@current_player_index]
-
-      @monsters = []
-
-      @labyrinth = Labyrinth.new(5, 5, 4, 4)
-
-      @log = ""
-
-      configure_labyrinth
-
-      @labyrinth.spread_players(@players)
     end
+
 
     def finished
       @labyrinth.have_a_winner
@@ -93,11 +119,26 @@ class Game
       @labyrinth.add_block(Orientation::VERTICAL, 1, 1, 2)
       @labyrinth.add_block(Orientation::HORIZONTAL, 3, 2, 2)
 
+      pos1 = @labyrinth.random_empty_pos
+      m1 = Monster.new("Adri", Dice.random_intelligence, Dice.random_strength)
+      @labyrinth.add_monster(pos1[0], pos1[1], m1)
+      @monsters << m1
+
+      pos2 = @labyrinth.random_empty_pos   # se calcula DESPUÉS de colocar m1
+      m2 = Monster.new("Alvaro", Dice.random_intelligence, Dice.random_strength)
+      @labyrinth.add_monster(pos2[0], pos2[1], m2)
+      @monsters << m2
+    end
+
+
+    def configure_labyrinth_debug
+      @labyrinth.add_block(Orientation::VERTICAL, 1, 1, 1)
+
       m1 = Monster.new("Adri", 2.0, 3.0)
       m2 = Monster.new("Alvaro", 1.5, 2.0)
 
-      @labyrinth.add_monster(0, 2, m1)
-      @labyrinth.add_monster(2, 3, m2)
+      @labyrinth.add_monster(1, 0, m1)
+      @labyrinth.add_monster(2, 1, m2)
 
       @monsters << m1
       @monsters << m2
@@ -109,8 +150,8 @@ class Game
     end
     
     def actual_direction(preferred_direction)
-      current_row = @current_player.get_row
-      current_col = @current_player.get_col
+      current_row = @current_player.row
+      current_col = @current_player.col
 
       valid_moves = @labyrinth.valid_moves(current_row, current_col)
 

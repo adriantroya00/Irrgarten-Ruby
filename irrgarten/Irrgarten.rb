@@ -8,7 +8,7 @@ require_relative 'Controller'
 
    module Irrgarten
       view = UI::TextUI.new
-      game = Game.new(2,2)
+      game = Game.new(2,false)
       controller = Control::Controller.new(game, view)
 
       controller.play
