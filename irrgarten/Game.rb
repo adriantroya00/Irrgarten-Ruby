@@ -13,7 +13,7 @@ require_relative 'GameState'
 
 module Irrgarten
   class Game 
-    attr_reader :current_player
+    attr_reader :current_player, :labyrinth
     MAX_ROUNDS = 10
 
     def initialize(n_players,debug)
