@@ -4,6 +4,7 @@
 module Irrgarten
 
   class GameState
+    # trabajar con los .__ no con los getters
     attr_reader :labyrinth, :players, :monsters, :current_player, :winner, :log
     
     # labyrinth: mapa
@@ -21,7 +22,7 @@ module Irrgarten
       @log = log
     end
 
-    # Equivalente a isWinner() de Java
+    # NO deberia usarse si tenemos los attr_reader
     def winner?
       @winner
     end

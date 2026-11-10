@@ -1,8 +1,8 @@
 # encoding: UTF-8
+# @author Alvaro Perez Sanchez 
+# @author Adrian Hernando Leal
 
 module Irrgarten
-  # @author Alvaro Perez Sanchez 
-  # @author Adrian Hernando Leal
   
   class Dice
     MAX_USES = 5                # Número máximo de usos de armas y escudos

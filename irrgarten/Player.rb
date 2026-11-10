@@ -9,81 +9,79 @@ require_relative 'Shield'
 
 module Irrgarten
   class Player
-    #health y current_player se eliminara despues de probar la resurreccion
+    #health solo se utilizan para el test de reanimar
     attr_writer :health
-    attr_reader :row, :col, :number
+    attr_reader :row, :col, :number   # sirven para saber la posicion del jugador y q numero es para el mapa
 
-    MAX_WEAPONS = 2
-    MAX_SHIELDS = 3
-    INITIAL_HEALTH = 10
-    HITS2LOSE = 3
-    NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase
-
-    
+    MAX_WEAPONS = 2                 # maximo numero de armas por jugador
+    MAX_SHIELDS = 3                 # maximo numero de escudos por jugador
+    INITIAL_HEALTH = 10             # salud inicial del jugador
+    HITS2LOSE = 3                   # golpes consecutivos para retirarse del combate
+    NO_POS = -1                     # añadimos un atributo de clase extra para las posiciones fuera del tablero
 
     def initialize(number, intelligence, strength)
-      @number = number
-      @name = "Player ##{@number}"
-      @intelligence = intelligence
-      @strength = strength
-      @health = INITIAL_HEALTH.to_f
-      @row = NO_POS
-      @col = NO_POS
-      @consecutive_hits = 0
-      @weapons = [] # crean arrays vacios
-      @shields = [] # crean arrays vacios
+      @number = number              # numero del jugador
+      @name = "Player ##{@number}"  # nombre del jugador
+      @intelligence = intelligence  # defensa
+      @strength = strength          # fuerza
+      @health = INITIAL_HEALTH.to_f # salud inicial
+      @row = NO_POS                 # fila inicial
+      @col = NO_POS                 # columna inicial
+      @consecutive_hits = 0         # golpes consecutivos
+      @weapons = []                 # crean arrays vacios
+      @shields = []                 # crean arrays vacios
     end
 
   def resurrect
-    @weapons.clear
-    @shields.clear
-    @health = INITIAL_HEALTH.to_f
-    @consecutive_hits = 0
+    @weapons.clear                  # vaciamos las armas
+    @shields.clear                  #    "     los escudos
+    @health = INITIAL_HEALTH.to_f   # restauramos la salud
+    @consecutive_hits = 0           # reiniciamos los golpes consecutivos recibidos
   end
 
-  def set_pos(row, col)
+  def set_pos(row, col)             # coloca un jugador
     @row = row
     @col = col
   end
 
-  def dead
+  def dead                          # comprobamos si ha muerto el jugador
     @health <= 0.0
   end
 
-  def move(direction, valid_moves)
-    size = valid_moves.size
-    contained = valid_moves.include?(direction)
+  def move(direction, valid_moves)                # recibe una direccion y una lista con los movimientos validos
+    size = valid_moves.size                       # comprobamos cuantos movimientos validos hay
+    contained = valid_moves.include?(direction)   # comprobamos si la direccion pedida es valida
 
-    if size > 0 && !contained
-      valid_moves.first
-    else
-      direction
+    if size > 0 && !contained                     # si hay posiciones validas pero no esta la pasada
+      valid_moves.first                           # devolvemos la primera direccion valida
+    else                                          # si la direccion es valida o no hay movimientos posibles
+      direction                                   # devolvemos la direccion pedida, si no es valida se encargara put_player_2d de no mover al jugador
     end
   end
   
   def attack
-    @strength + sum_weapons
+    @strength + sum_weapons                       # suma de fuerza base mas lo que aporta cada arma
   end
 
   def defend(received_attack)
-    manage_hit(received_attack)
+    manage_hit(received_attack)                   # delega en manage_hit
   end
 
   def receive_reward
-    w_reward = Dice.weapons_reward
+    w_reward = Dice.weapons_reward                # preguntamos al dado cuantas armas o escudos le tocan
     s_reward = Dice.shields_reward
 
-    w_reward.times do
-      wnew = new_weapon
-      receive_weapon(wnew)
+    w_reward.times do                             # para cada numero de armas 
+      wnew = new_weapon                           # se crea el arma
+      receive_weapon(wnew)                        # el jugador recibe el arma
     end
 
-    s_reward.times do
+    s_reward.times do                             # igual con los escudos
       snew = new_shield
       receive_shield(snew)
     end
 
-    extra_health = Dice.health_reward
+    extra_health = Dice.health_reward             # añadimos la vida extra que gane el jugador
     @health += extra_health
   end  
 
@@ -105,9 +103,10 @@ module Irrgarten
     private
 
     def receive_weapon(w)
-      # delete_if equivale al iterator.remove
+      # eliminamos las armas que se tengan q descartar
       @weapons.delete_if { |wi| wi.discard }
 
+      # si caben armas añadimos el arma
       if @weapons.size < MAX_WEAPONS
         @weapons << w
       end
@@ -123,6 +122,7 @@ module Irrgarten
       end
     end
 
+    # creamos armas y escudos con estadisticas aleatorias del dado
     def new_weapon
       Weapon.new(Dice.weapon_power, Dice.uses_left)
     end
@@ -131,31 +131,32 @@ module Irrgarten
       Shield.new(Dice.shield_power, Dice.uses_left)
     end
 
+    # sumamos las defensas del personaje mas las de los escudos
     def defensive_energy
       @intelligence + sum_shields
     end
 
     def manage_hit(received_attack)
-      defense = defensive_energy
+      defense = defensive_energy        # obtenemos la fuerza de la defensa
 
-      if defense < received_attack
-        got_wounded
-        inc_consecutive_hits
-      else
-        reset_hits
+      if defense < received_attack                # si no es suficiente la defensa
+        got_wounded                               # bajamos uno de vida al personaje
+        inc_consecutive_hits                      # incrementamos el numero de hits consecutivos
+      else                                        # si defiende el ataque
+        reset_hits                                # reiniciamos el numero de hits consecutivos
       end
 
-      if @consecutive_hits == HITS2LOSE || dead
-        reset_hits
-        lose = true
-      else
-        lose = false
+      if @consecutive_hits == HITS2LOSE || dead   # si los hits consecutivos llegan al maximo o muere
+        reset_hits                                # reiniciamos la racha
+        lose = true                               # el jugador muere
+      else                                        # si no se llega a los hits ni muere
+        lose = false                              # el jugador no muere
       end
 
       lose
     end
 
-    def reset_hits
+    def reset_hits                                
       @consecutive_hits = 0
     end
 
@@ -169,9 +170,9 @@ module Irrgarten
 
     def sum_weapons
       sum_total = 0.0
-      @weapons.each do |weapon|
-        if !weapon.nil?
-          sum_total += weapon.attack 
+      @weapons.each do |weapon|               # recorremos el array de armas 
+        if !weapon.nil?                       # si hay arma
+          sum_total += weapon.attack          # acumulamos el ataque
         end
       end
       sum_total

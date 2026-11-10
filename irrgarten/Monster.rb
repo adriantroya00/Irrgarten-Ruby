@@ -5,41 +5,41 @@ module Irrgarten
   require_relative 'Dice'
 
   class Monster
-    INITIAL_HEALTH = 5
-    NO_POS = -1 # esto es por la pregunta del guión sobre si deberiamos añadir algun atributo de clase 
+    INITIAL_HEALTH = 5                              # salud inicial del monstruo
+    NO_POS = -1                                     # añadimos un atributo de clase para decir que la posicion no es valida  
 
     def initialize(name, intelligence, strength)
-      @name = name
-      @intelligence = intelligence
-      @strength = strength
-      @health = INITIAL_HEALTH.to_f
-      @row = NO_POS
+      @name = name                                  # nombre del monstruo
+      @intelligence = intelligence                  # inteligencia  
+      @strength = strength                          # fuerza
+      @health = INITIAL_HEALTH.to_f                 # salud
+      @row = NO_POS                                 # posicion
       @col = NO_POS
     end
 
-    def dead
+    def dead                                        # comprobamos si ha muerto
       @health <= 0.0
     end
 
-    def attack
+    def attack                                      # el dado elige la intensidad con la que ataca el monstruo
       Dice.intensity(@strength)
     end
 
     def defend(received_attack)
-      is_dead = dead()
+      is_dead = dead()                                    # comprobamos si el monstruo esta muerto
       
-      if !is_dead
-        defensive_energy = Dice.intensity(@intelligence)
+      if !is_dead                                         # si sigue vivo
+        defensive_energy = Dice.intensity(@intelligence)  # calculamos su energia defensiva entre [0, inteligencia)
 
-        if defensive_energy < received_attack
-          got_wounded()
-          is_dead = dead()
+        if defensive_energy < received_attack             # si no defiende el ataque
+          got_wounded()                                   # recibe daño
+          is_dead = dead()                                # comprobamos si esta muerto
         end
-      end
-        is_dead
+      end                                                 # si esta muerto
+        is_dead                                           # devolvemos true si esta muerto o muere a consecuencia del ataque
     end
 
-    def set_pos(row, col)
+    def set_pos(row, col)               # para darle la posicion al monstruo
       @row = row
       @col = col
     end
@@ -55,7 +55,7 @@ module Irrgarten
       }\n"
     end
   private
-    def got_wounded
+    def got_wounded                 # resta 1 de salud 
       @health -= 1
     end
   end
